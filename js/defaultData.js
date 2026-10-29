@@ -17,7 +17,7 @@ const DEFAULT_RESUME_DATA = {
     phone: "+91 7827777291",
     location: "Greater Noida / Delhi NCR, India",
     linkedin: "https://www.linkedin.com/in/",
-    github: "https://github.com/",
+    github: "https://github.com/shivamthegreat116-glitch",
     avatar: "assets/avatar.svg",
     bioSnippet: "B.Tech CSE (AI & ML) student passionate about building real-time computer vision systems, intelligent AI applications, and modern responsive web solutions."
   },
@@ -86,8 +86,8 @@ const DEFAULT_RESUME_DATA = {
         "Multi-point landmark calculation for blink rate, eyebrow furrowing, and fatigue cues",
         "Interactive web dashboard providing real-time relaxation prompts and stress telemetry"
       ],
-      github: "https://github.com",
-      demo: "#"
+      github: "https://github.com/shivamthegreat116-glitch/shivams-digital-portfolio",
+      demo: "https://shivams-digital-portfolio.vercel.app"
     },
     {
       title: "Universal Digital Portfolio & Resume Platform",
@@ -100,8 +100,8 @@ const DEFAULT_RESUME_DATA = {
         "Export and import JSON configuration to carry resume anywhere",
         "Clean, print-optimized media queries for sharp PDF downloads"
       ],
-      github: "https://github.com",
-      demo: "#"
+      github: "https://github.com/shivamthegreat116-glitch/shivams-digital-portfolio",
+      demo: "https://shivams-digital-portfolio.vercel.app"
     }
   ],
   experience: [
