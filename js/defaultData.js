@@ -169,7 +169,10 @@ const DEFAULT_RESUME_DATA = {
   ]
 };
 
-// Make available globally or via module
+// Make available globally on window or via module
+if (typeof window !== 'undefined') {
+  window.DEFAULT_RESUME_DATA = DEFAULT_RESUME_DATA;
+}
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = DEFAULT_RESUME_DATA;
 }

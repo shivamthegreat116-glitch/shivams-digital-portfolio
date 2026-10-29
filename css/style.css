@@ -1517,8 +1517,9 @@ button, input, textarea, select {
 }
 
 .customizer-modal-backdrop.open {
-  opacity: 1;
-  pointer-events: auto;
+  display: flex !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
 }
 
 .customizer-modal-dialog {

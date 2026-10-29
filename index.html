@@ -41,17 +41,22 @@
       <!-- Action Buttons -->
       <div class="nav-actions">
         <!-- Live Customizer Trigger -->
-        <button class="btn btn-outline btn-sm" id="btn-open-customizer" title="Customize this resume for yourself">
-          <i class="fas fa-sliders-h"></i> <span class="hide-sm">Customize Resume</span>
+        <button class="btn btn-outline btn-sm" id="btn-open-customizer" onclick="openCustomizer()" title="Customize this resume for yourself">
+          <i class="fas fa-sliders-h"></i> <span class="hide-sm">Customize</span>
         </button>
 
+        <!-- Direct PDF Download -->
+        <a href="assets/shivamresume.pdf" download="Shivam_Pandey_Resume.pdf" class="btn btn-primary btn-sm" id="btn-download-resume" title="Download Shivam's Resume PDF">
+          <i class="fas fa-file-download"></i> <span class="hide-sm">Download Resume</span>
+        </a>
+
         <!-- Print / PDF Trigger -->
-        <button class="btn btn-primary btn-sm" id="btn-print-resume" title="Export / Print to PDF">
-          <i class="fas fa-file-pdf"></i> <span class="hide-sm">Print / PDF</span>
+        <button class="btn btn-ghost btn-sm hide-sm" id="btn-print-resume" onclick="window.print()" title="Export / Print ATS View">
+          <i class="fas fa-print"></i> Print ATS
         </button>
 
         <!-- Theme Toggle (Dark / Light) -->
-        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle Dark/Light Mode" title="Toggle Theme">
+        <button class="theme-toggle" id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle Dark/Light Mode" title="Toggle Theme">
           <i class="fas fa-moon" id="theme-icon"></i>
         </button>
 
@@ -68,7 +73,7 @@
     <div class="banner-content">
       <span><i class="fas fa-wand-magic-sparkles"></i> <strong>Universal Digital Resume:</strong> Anyone can edit this resume with their own info or download as PDF!</span>
       <div class="banner-buttons">
-        <button class="btn-text" id="banner-customize-btn">Try Customizer</button>
+        <button class="btn-text" id="banner-customize-btn" onclick="openCustomizer()">Try Customizer</button>
         <button class="banner-close" id="banner-close-btn" aria-label="Close banner">&times;</button>
       </div>
     </div>
@@ -118,14 +123,14 @@
 
           <!-- Hero Action Buttons -->
           <div class="hero-actions">
-            <button class="btn btn-primary btn-lg" id="hero-btn-print">
+            <a href="assets/shivamresume.pdf" download="Shivam_Pandey_Resume.pdf" class="btn btn-primary btn-lg" id="hero-btn-download" title="Download Shivam's Resume PDF">
               <i class="fas fa-file-download"></i> Download Resume PDF
-            </button>
-            <a href="#contact" class="btn btn-outline btn-lg">
-              <i class="fas fa-paper-plane"></i> Contact Me
             </a>
-            <button class="btn btn-ghost btn-lg" id="hero-btn-customize">
-              <i class="fas fa-edit"></i> Edit Your Resume
+            <button class="btn btn-outline btn-lg" id="hero-btn-customize" onclick="openCustomizer()" title="Customize this resume live">
+              <i class="fas fa-sliders-h"></i> Customize Resume
+            </button>
+            <button class="btn btn-ghost btn-lg" id="hero-btn-print" onclick="window.print()" title="Print ATS-friendly version">
+              <i class="fas fa-print"></i> Print ATS View
             </button>
           </div>
 
@@ -448,7 +453,7 @@
             <p>Personalize this portfolio with your own details. Updates reflect immediately!</p>
           </div>
         </div>
-        <button class="customizer-close-btn" id="customizer-close">&times;</button>
+        <button class="customizer-close-btn" id="customizer-close" onclick="closeCustomizer()">&times;</button>
       </div>
 
       <!-- Quick Actions Bar in Customizer -->
@@ -577,8 +582,8 @@
       <div class="customizer-footer">
         <div class="customizer-status" id="customizer-status-msg">Changes saved locally in your browser!</div>
         <div class="customizer-footer-buttons">
-          <button class="btn btn-ghost" id="customizer-btn-cancel">Close</button>
-          <button class="btn btn-primary" id="customizer-btn-apply">
+          <button class="btn btn-ghost" id="customizer-btn-cancel" onclick="closeCustomizer()">Close</button>
+          <button class="btn btn-primary" id="customizer-btn-apply" onclick="applyCustomizerChanges()">
             <i class="fas fa-check"></i> Apply & Save Changes
           </button>
         </div>

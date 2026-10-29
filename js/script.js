@@ -3,7 +3,7 @@
  * Built with Vanilla JavaScript
  */
 
-document.addEventListener('DOMContentLoaded', () => {
+(function() {
   // --- APPLICATION STATE ---
   let resumeData = loadSavedResumeData();
   let typewriterTimeout = null;
@@ -12,10 +12,18 @@ document.addEventListener('DOMContentLoaded', () => {
   let isDeleting = false;
 
   // --- INITIALIZE APPLICATION ---
-  initTheme();
-  renderResume(resumeData);
-  setupEventListeners();
-  setupScrollEffects();
+  function initApp() {
+    initTheme();
+    renderResume(resumeData);
+    setupEventListeners();
+    setupScrollEffects();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initApp);
+  } else {
+    initApp();
+  }
 
   /* ===================================================================
      DATA STORAGE & LOADERS
@@ -29,8 +37,38 @@ document.addEventListener('DOMContentLoaded', () => {
     } catch (e) {
       console.warn('Could not parse saved resume data, falling back to default:', e);
     }
-    // Deep clone DEFAULT_RESUME_DATA
-    return JSON.parse(JSON.stringify(DEFAULT_RESUME_DATA));
+    
+    // Safely retrieve default data
+    const sourceData = (typeof window !== 'undefined' && window.DEFAULT_RESUME_DATA) ? 
+      window.DEFAULT_RESUME_DATA : 
+      ((typeof DEFAULT_RESUME_DATA !== 'undefined') ? DEFAULT_RESUME_DATA : null);
+
+    if (sourceData) {
+      try {
+        return JSON.parse(JSON.stringify(sourceData));
+      } catch (err) {
+        console.warn('Could not clone default resume data:', err);
+      }
+    }
+    
+    // Fallback minimal object so it NEVER crashes
+    return {
+      personal: { 
+        name: "Shivam Pandey", 
+        titles: ["AI & Machine Learning Engineer", "Web Developer"],
+        statusBadge: "Available for Internships & Projects",
+        email: "shivamthegreat116@email.com",
+        phone: "+91 7827777291",
+        location: "Greater Noida / Delhi NCR",
+        linkedin: "https://linkedin.com",
+        github: "https://github.com/shivamthegreat116-glitch"
+      },
+      about: { summary: "Passionate about AI, Computer Vision and Web Engineering." },
+      skills: [],
+      projects: [],
+      experience: [],
+      education: []
+    };
   }
 
   function saveResumeData(newData) {
@@ -585,15 +623,34 @@ document.addEventListener('DOMContentLoaded', () => {
   const customizerApply = document.getElementById('customizer-btn-apply');
 
   function openCustomizer() {
-    populateCustomizerForm(resumeData);
-    if (customizerModal) customizerModal.classList.add('open');
+    try {
+      populateCustomizerForm(resumeData);
+    } catch (err) {
+      console.warn('Error populating form:', err);
+    }
+    const modal = document.getElementById('customizer-modal');
+    if (modal) {
+      modal.classList.add('open');
+      modal.style.display = 'flex';
+      modal.style.opacity = '1';
+      modal.style.pointerEvents = 'auto';
+    }
     document.body.style.overflow = 'hidden';
   }
 
   function closeCustomizer() {
-    if (customizerModal) customizerModal.classList.remove('open');
+    const modal = document.getElementById('customizer-modal');
+    if (modal) {
+      modal.classList.remove('open');
+      modal.style.display = 'none';
+      modal.style.opacity = '0';
+      modal.style.pointerEvents = 'none';
+    }
     document.body.style.overflow = '';
   }
+
+  window.openCustomizer = openCustomizer;
+  window.closeCustomizer = closeCustomizer;
 
   if (btnOpenCustomizer) btnOpenCustomizer.addEventListener('click', openCustomizer);
   if (heroBtnCustomize) heroBtnCustomize.addEventListener('click', openCustomizer);
@@ -949,113 +1006,116 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // APPLY & SAVE RESUME CUSTOMIZATION
-  if (customizerApply) {
-    customizerApply.addEventListener('click', () => {
-      // Gather Personal
-      const updatedTitles = getVal('edit-titles')
-        .split(',')
-        .map(t => t.trim())
-        .filter(Boolean);
+  function applyCustomizerChanges() {
+    // Gather Personal
+    const updatedTitles = getVal('edit-titles')
+      .split(',')
+      .map(t => t.trim())
+      .filter(Boolean);
 
-      const updatedPersonal = {
-        name: getVal('edit-name') || resumeData.personal.name,
-        titles: updatedTitles.length > 0 ? updatedTitles : resumeData.personal.titles,
-        statusBadge: getVal('edit-status') || resumeData.personal.statusBadge,
-        email: getVal('edit-email'),
-        phone: getVal('edit-phone'),
-        location: getVal('edit-location'),
-        linkedin: getVal('edit-linkedin'),
-        github: getVal('edit-github'),
-        avatar: resumeData.personal.avatar,
-        bioSnippet: getVal('edit-bio')
-      };
+    const updatedPersonal = {
+      name: getVal('edit-name') || resumeData.personal.name,
+      titles: updatedTitles.length > 0 ? updatedTitles : resumeData.personal.titles,
+      statusBadge: getVal('edit-status') || resumeData.personal.statusBadge,
+      email: getVal('edit-email'),
+      phone: getVal('edit-phone'),
+      location: getVal('edit-location'),
+      linkedin: getVal('edit-linkedin'),
+      github: getVal('edit-github'),
+      avatar: resumeData.personal.avatar,
+      bioSnippet: getVal('edit-bio')
+    };
 
-      // Gather About
-      const updatedAbout = {
-        ...resumeData.about,
-        summary: getVal('edit-summary')
-      };
+    // Gather About
+    const updatedAbout = {
+      ...resumeData.about,
+      summary: getVal('edit-summary')
+    };
 
-      // Gather Skills
-      const skillCards = document.querySelectorAll('#edit-skills-list-container .customizer-item-card');
-      const updatedSkills = [];
-      skillCards.forEach(c => {
-        const title = c.querySelector('.skill-cat-title')?.value.trim();
-        const items = c.querySelector('.skill-cat-items')?.value.split(',').map(s => s.trim()).filter(Boolean);
-        if (title && items) {
-          updatedSkills.push({
-            category: title,
-            icon: 'fas fa-check-circle',
-            items: items
-          });
-        }
-      });
-
-      // Gather Projects
-      const projCards = document.querySelectorAll('#edit-projects-list-container .customizer-item-card');
-      const updatedProjects = [];
-      projCards.forEach(c => {
-        const title = c.querySelector('.proj-title')?.value.trim();
-        if (title) {
-          updatedProjects.push({
-            title: title,
-            category: c.querySelector('.proj-category')?.value.trim() || 'Project',
-            badge: 'Custom Project',
-            description: c.querySelector('.proj-desc')?.value.trim() || '',
-            features: (c.querySelector('.proj-features')?.value || '').split('\n').map(s => s.trim()).filter(Boolean),
-            tags: (c.querySelector('.proj-tags')?.value || '').split(',').map(s => s.trim()).filter(Boolean),
-            github: c.querySelector('.proj-github')?.value.trim() || '',
-            demo: c.querySelector('.proj-demo')?.value.trim() || '#'
-          });
-        }
-      });
-
-      // Gather Experience
-      const expCards = document.querySelectorAll('#edit-experience-list-container .customizer-item-card');
-      const updatedExperience = [];
-      expCards.forEach(c => {
-        const role = c.querySelector('.exp-role')?.value.trim();
-        if (role) {
-          updatedExperience.push({
-            role: role,
-            organization: c.querySelector('.exp-org')?.value.trim() || '',
-            duration: c.querySelector('.exp-duration')?.value.trim() || '',
-            location: c.querySelector('.exp-location')?.value.trim() || '',
-            points: (c.querySelector('.exp-points')?.value || '').split('\n').map(s => s.trim()).filter(Boolean)
-          });
-        }
-      });
-
-      // Gather Education
-      const eduCards = document.querySelectorAll('#edit-education-list-container .customizer-item-card');
-      const updatedEducation = [];
-      eduCards.forEach(c => {
-        const degree = c.querySelector('.edu-degree')?.value.trim();
-        if (degree) {
-          updatedEducation.push({
-            degree: degree,
-            institution: c.querySelector('.edu-inst')?.value.trim() || '',
-            duration: c.querySelector('.edu-dur')?.value.trim() || '',
-            score: c.querySelector('.edu-score')?.value.trim() || '',
-            description: c.querySelector('.edu-desc')?.value.trim() || ''
-          });
-        }
-      });
-
-      // Commit changes
-      const newResumeData = {
-        ...resumeData,
-        personal: updatedPersonal,
-        about: updatedAbout,
-        skills: updatedSkills.length > 0 ? updatedSkills : resumeData.skills,
-        projects: updatedProjects.length > 0 ? updatedProjects : resumeData.projects,
-        experience: updatedExperience.length > 0 ? updatedExperience : resumeData.experience,
-        education: updatedEducation.length > 0 ? updatedEducation : resumeData.education
-      };
-
-      saveResumeData(newResumeData);
-      closeCustomizer();
+    // Gather Skills
+    const skillCards = document.querySelectorAll('#edit-skills-list-container .customizer-item-card');
+    const updatedSkills = [];
+    skillCards.forEach(c => {
+      const title = c.querySelector('.skill-cat-title')?.value.trim();
+      const items = c.querySelector('.skill-cat-items')?.value.split(',').map(s => s.trim()).filter(Boolean);
+      if (title && items) {
+        updatedSkills.push({
+          category: title,
+          icon: 'fas fa-check-circle',
+          items: items
+        });
+      }
     });
+
+    // Gather Projects
+    const projCards = document.querySelectorAll('#edit-projects-list-container .customizer-item-card');
+    const updatedProjects = [];
+    projCards.forEach(c => {
+      const title = c.querySelector('.proj-title')?.value.trim();
+      if (title) {
+        updatedProjects.push({
+          title: title,
+          category: c.querySelector('.proj-category')?.value.trim() || 'Project',
+          badge: 'Custom Project',
+          description: c.querySelector('.proj-desc')?.value.trim() || '',
+          features: (c.querySelector('.proj-features')?.value || '').split('\n').map(s => s.trim()).filter(Boolean),
+          tags: (c.querySelector('.proj-tags')?.value || '').split(',').map(s => s.trim()).filter(Boolean),
+          github: c.querySelector('.proj-github')?.value.trim() || '',
+          demo: c.querySelector('.proj-demo')?.value.trim() || '#'
+        });
+      }
+    });
+
+    // Gather Experience
+    const expCards = document.querySelectorAll('#edit-experience-list-container .customizer-item-card');
+    const updatedExperience = [];
+    expCards.forEach(c => {
+      const role = c.querySelector('.exp-role')?.value.trim();
+      if (role) {
+        updatedExperience.push({
+          role: role,
+          organization: c.querySelector('.exp-org')?.value.trim() || '',
+          duration: c.querySelector('.exp-duration')?.value.trim() || '',
+          location: c.querySelector('.exp-location')?.value.trim() || '',
+          points: (c.querySelector('.exp-points')?.value || '').split('\n').map(s => s.trim()).filter(Boolean)
+        });
+      }
+    });
+
+    // Gather Education
+    const eduCards = document.querySelectorAll('#edit-education-list-container .customizer-item-card');
+    const updatedEducation = [];
+    eduCards.forEach(c => {
+      const degree = c.querySelector('.edu-degree')?.value.trim();
+      if (degree) {
+        updatedEducation.push({
+          degree: degree,
+          institution: c.querySelector('.edu-inst')?.value.trim() || '',
+          duration: c.querySelector('.edu-dur')?.value.trim() || '',
+          score: c.querySelector('.edu-score')?.value.trim() || '',
+          description: c.querySelector('.edu-desc')?.value.trim() || ''
+        });
+      }
+    });
+
+    // Commit changes
+    const newResumeData = {
+      ...resumeData,
+      personal: updatedPersonal,
+      about: updatedAbout,
+      skills: updatedSkills.length > 0 ? updatedSkills : resumeData.skills,
+      projects: updatedProjects.length > 0 ? updatedProjects : resumeData.projects,
+      experience: updatedExperience.length > 0 ? updatedExperience : resumeData.experience,
+      education: updatedEducation.length > 0 ? updatedEducation : resumeData.education
+    };
+
+    saveResumeData(newResumeData);
+    closeCustomizer();
+  }
+
+  window.applyCustomizerChanges = applyCustomizerChanges;
+  if (customizerApply) {
+    customizerApply.addEventListener('click', applyCustomizerChanges);
   }
 
   // Quick Action: Load Default
@@ -1316,4 +1376,4 @@ document.addEventListener('DOMContentLoaded', () => {
       setTimeout(() => toast.remove(), 300);
     }, 2800);
   }
-});
+})();
