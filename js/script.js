@@ -208,16 +208,20 @@
     // Brand and logo
     document.querySelectorAll('.brand-badge').forEach(el => el.textContent = initials);
     const navName = document.getElementById('nav-brand-name');
-    if (navName) navName.textContent = p.name ? `${p.name}'s Digital Portfolio` : "Shivam's Digital Portfolio";
+    if (navName) {
+      navName.textContent = (!p.name || p.name === "Shivam Pandey") ? "Shivam's Portfolio" : `${p.name.split(' ')[0]}'s Portfolio`;
+    }
     
     const footerName = document.getElementById('footer-name');
-    if (footerName) footerName.textContent = p.name ? `${p.name}'s Digital Portfolio` : "Shivam's Digital Portfolio";
+    if (footerName) {
+      footerName.textContent = (!p.name || p.name === "Shivam Pandey") ? "Shivam's Portfolio" : `${p.name}'s Portfolio`;
+    }
     
     const footerCopy = document.getElementById('footer-copy-name');
     if (footerCopy) footerCopy.textContent = p.name || 'Shivam Pandey';
 
     // Page title
-    document.title = p.name ? `${p.name}'s Digital Portfolio` : "Shivam's Digital Portfolio";
+    document.title = (!p.name || p.name === "Shivam Pandey") ? "Shivam's Portfolio" : `${p.name}'s Portfolio`;
 
     // Hero elements
     const heroName = document.getElementById('hero-name');
@@ -316,6 +320,8 @@
 
     // 4. Projects Section
     renderProjects(data.projects || []);
+    const ghUser = (p.github || '').split('/').filter(Boolean).pop() || 'shivamthegreat116-glitch';
+    loadGitHubRepositories(ghUser);
 
     // 5. Experience Section
     renderExperience(data.experience || []);
@@ -404,6 +410,85 @@
         </div>
       `;
     }).join('');
+  }
+
+  async function loadGitHubRepositories(username = 'shivamthegreat116-glitch') {
+    const container = document.getElementById('github-repos-container');
+    if (!container) return;
+
+    // Default repositories cache for instant loading & offline resilience
+    const defaultRepos = [
+      {
+        name: "Jolly-ai",
+        description: "Real-time AI stress and emotion monitoring system using OpenCV, facial landmarks, and interactive web telemetry.",
+        language: "TypeScript",
+        stars: 1,
+        forks: 0,
+        url: "https://github.com/shivamthegreat116-glitch/Jolly-ai"
+      },
+      {
+        name: "shivams-digital-portfolio",
+        description: "Universal digital portfolio & resume web platform built with Vanilla JS, live customizer, and ATS print generator.",
+        language: "JavaScript",
+        stars: 1,
+        forks: 0,
+        url: "https://github.com/shivamthegreat116-glitch/shivams-digital-portfolio"
+      }
+    ];
+
+    function renderRepoCards(repos) {
+      if (!repos || repos.length === 0) {
+        container.innerHTML = '<p class="text-secondary">No public repositories found.</p>';
+        return;
+      }
+      container.innerHTML = repos.map(repo => {
+        const repoUrl = repo.html_url || repo.url;
+        const langName = repo.language || (repo.primaryLanguage && repo.primaryLanguage.name) || 'Code';
+        const stars = repo.stargazers_count !== undefined ? repo.stargazers_count : (repo.stars || 0);
+        const forks = repo.forks_count !== undefined ? repo.forks_count : (repo.forks || 0);
+        return `
+          <div class="github-repo-card">
+            <div>
+              <div class="github-repo-header">
+                <span class="github-repo-title">
+                  <i class="fab fa-github"></i>
+                  <a href="${escapeHtml(repoUrl)}" target="_blank" rel="noopener noreferrer">${escapeHtml(repo.name)}</a>
+                </span>
+                <a href="${escapeHtml(repoUrl)}" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-xs" title="View Source">
+                  <i class="fas fa-external-link-alt"></i> Code
+                </a>
+              </div>
+              <p class="github-repo-desc">${escapeHtml(repo.description || 'Public GitHub codebase and documentation.')}</p>
+            </div>
+            <div class="github-repo-meta">
+              <span class="github-repo-lang">
+                <span class="lang-dot"></span> ${escapeHtml(langName)}
+              </span>
+              <div style="display: flex; gap: 0.75rem;">
+                <span><i class="far fa-star"></i> ${stars}</span>
+                <span><i class="fas fa-code-branch"></i> ${forks}</span>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // Render immediate default list first (zero latency)
+    renderRepoCards(defaultRepos);
+
+    // Try fetching live repositories from GitHub API
+    try {
+      const res = await fetch(`https://api.github.com/users/${username}/repos?sort=updated&per_page=12`);
+      if (res.ok) {
+        const liveRepos = await res.json();
+        if (Array.isArray(liveRepos) && liveRepos.length > 0) {
+          renderRepoCards(liveRepos);
+        }
+      }
+    } catch (err) {
+      console.log('Using cached GitHub repo data:', err);
+    }
   }
 
   function renderExperience(expList) {

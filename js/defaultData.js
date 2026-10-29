@@ -86,8 +86,8 @@ const DEFAULT_RESUME_DATA = {
         "Multi-point landmark calculation for blink rate, eyebrow furrowing, and fatigue cues",
         "Interactive web dashboard providing real-time relaxation prompts and stress telemetry"
       ],
-      github: "https://github.com/shivamthegreat116-glitch/shivams-digital-portfolio",
-      demo: "https://shivams-digital-portfolio.vercel.app"
+      github: "https://github.com/shivamthegreat116-glitch/Jolly-ai",
+      demo: "https://github.com/shivamthegreat116-glitch/Jolly-ai"
     },
     {
       title: "Universal Digital Portfolio & Resume Platform",
