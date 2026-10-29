@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shivam's Digital Portfolio</title>
+  <meta name="description" content="Shivam's Digital Portfolio & Resume - B.Tech CSE (AI & Machine Learning), Computer Vision Enthusiast & Full-Stack Web Developer.">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <header class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="#hero" class="nav-brand">
+        <span class="brand-badge">SP</span>
+        <span class="brand-text" id="nav-brand-name">Shivam's Digital Portfolio</span>
+      </a>
+
+      <!-- Desktop Nav Links -->
+      <nav class="nav-menu" id="nav-menu">
+        <a href="#about" class="nav-link"><i class="fas fa-user"></i> About</a>
+        <a href="#skills" class="nav-link"><i class="fas fa-tools"></i> Skills</a>
+        <a href="#projects" class="nav-link"><i class="fas fa-layer-group"></i> Projects</a>
+        <a href="#experience" class="nav-link"><i class="fas fa-briefcase"></i> Experience</a>
+        <a href="#education" class="nav-link"><i class="fas fa-graduation-cap"></i> Education</a>
+        <a href="#contact" class="nav-link"><i class="fas fa-envelope"></i> Contact</a>
+      </nav>
+
+      <!-- Action Buttons -->
+      <div class="nav-actions">
+        <!-- Live Customizer Trigger -->
+        <button class="btn btn-outline btn-sm" id="btn-open-customizer" title="Customize this resume for yourself">
+          <i class="fas fa-sliders-h"></i> <span class="hide-sm">Customize Resume</span>
+        </button>
+
+        <!-- Print / PDF Trigger -->
+        <button class="btn btn-primary btn-sm" id="btn-print-resume" title="Export / Print to PDF">
+          <i class="fas fa-file-pdf"></i> <span class="hide-sm">Print / PDF</span>
+        </button>
+
+        <!-- Theme Toggle (Dark / Light) -->
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle Dark/Light Mode" title="Toggle Theme">
+          <i class="fas fa-moon" id="theme-icon"></i>
+        </button>
+
+        <!-- Mobile Menu Toggle -->
+        <button class="menu-toggle" id="mobile-toggle" aria-label="Open Mobile Menu">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Banner: Universal Resume Announcement -->
+  <aside class="universal-banner" id="universal-banner">
+    <div class="banner-content">
+      <span><i class="fas fa-wand-magic-sparkles"></i> <strong>Universal Digital Resume:</strong> Anyone can edit this resume with their own info or download as PDF!</span>
+      <div class="banner-buttons">
+        <button class="btn-text" id="banner-customize-btn">Try Customizer</button>
+        <button class="banner-close" id="banner-close-btn" aria-label="Close banner">&times;</button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main>
+    <!-- HERO SECTION -->
+    <section class="hero-section" id="hero">
+      <div class="container hero-container">
+        <div class="hero-content">
+          <!-- Status pill -->
+          <div class="status-pill" id="hero-status-pill">
+            <span class="status-indicator"></span>
+            <span id="hero-status-text">Available for Internships & Projects</span>
+          </div>
+
+          <h1 class="hero-title">
+            Hi, I'm <span class="gradient-text" id="hero-name">Shivam Pandey</span>
+          </h1>
+
+          <div class="hero-typing-wrapper">
+            <span class="typing-prefix">I am a </span>
+            <span class="typing-text" id="hero-typing-target"></span>
+            <span class="typing-cursor">|</span>
+          </div>
+
+          <p class="hero-bio" id="hero-bio">
+            B.Tech CSE (AI & Machine Learning) student passionate about building real-time computer vision systems, intelligent AI applications, and modern responsive web solutions.
+          </p>
+
+          <!-- Contact Quick Info -->
+          <div class="hero-contacts" id="hero-contacts">
+            <a href="mailto:shivamthegreat116@email.com" class="hero-contact-pill" id="hero-email-link">
+              <i class="fas fa-envelope"></i>
+              <span id="hero-email-text">shivamthegreat116@email.com</span>
+            </a>
+            <a href="tel:+917827777291" class="hero-contact-pill" id="hero-phone-link">
+              <i class="fas fa-phone"></i>
+              <span id="hero-phone-text">+91 7827777291</span>
+            </a>
+            <span class="hero-contact-pill" id="hero-location-pill">
+              <i class="fas fa-map-marker-alt"></i>
+              <span id="hero-location-text">Greater Noida / Delhi NCR</span>
+            </span>
+          </div>
+
+          <!-- Hero Action Buttons -->
+          <div class="hero-actions">
+            <button class="btn btn-primary btn-lg" id="hero-btn-print">
+              <i class="fas fa-file-download"></i> Download Resume PDF
+            </button>
+            <a href="#contact" class="btn btn-outline btn-lg">
+              <i class="fas fa-paper-plane"></i> Contact Me
+            </a>
+            <button class="btn btn-ghost btn-lg" id="hero-btn-customize">
+              <i class="fas fa-edit"></i> Edit Your Resume
+            </button>
+          </div>
+
+          <!-- Social Links -->
+          <div class="hero-socials">
+            <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="social-icon" id="hero-github-link" title="GitHub">
+              <i class="fab fa-github"></i>
+            </a>
+            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="social-icon" id="hero-linkedin-link" title="LinkedIn">
+              <i class="fab fa-linkedin-in"></i>
+            </a>
+            <a href="mailto:shivamthegreat116@email.com" class="social-icon" id="hero-mail-icon" title="Email">
+              <i class="fas fa-at"></i>
+            </a>
+            <button class="social-icon share-btn" id="btn-share-resume" title="Share Digital Resume">
+              <i class="fas fa-share-nodes"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Hero Avatar & Graphic Card -->
+        <div class="hero-visual">
+          <div class="avatar-card">
+            <div class="avatar-glow"></div>
+            <div class="avatar-frame">
+              <img src="assets/avatar.svg" alt="Profile Avatar" id="hero-avatar-img">
+            </div>
+            <!-- Floating Tech Badges -->
+            <div class="floating-badge badge-top-right">
+              <i class="fab fa-python text-yellow"></i> <span>Python & OpenCV</span>
+            </div>
+            <div class="floating-badge badge-bottom-left">
+              <i class="fab fa-html5 text-orange"></i> <span>HTML5 / CSS3 / JS</span>
+            </div>
+            <div class="floating-badge badge-bottom-right">
+              <i class="fas fa-robot text-cyan"></i> <span>AI & ML (AKTU)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section class="section about-section" id="about">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-subtitle">Overview & Interests</span>
+          <h2 class="section-title">About Me</h2>
+          <div class="section-divider"></div>
+        </div>
+
+        <div class="about-grid">
+          <div class="about-bio-card">
+            <h3>Research & Engineering Mindset</h3>
+            <p id="about-summary-text" class="about-summary-p">
+              Passionate about advancing Artificial Intelligence and Computer Vision through practical innovation, with primary interests in Machine Learning, Deep Learning, Computer Vision, and Human-Centric AI Applications. Interested in building real-time vision pipelines, stress and emotion analysis systems, improving inference efficiency, and exploring real-world implementations of intelligent software.
+            </p>
+            
+            <!-- Quick Stat Counters -->
+            <div class="stats-row" id="about-stats-container">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+
+          <div class="about-highlights-card">
+            <h3>What I Focus On</h3>
+            <div class="highlights-list" id="about-highlights-container">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS SECTION -->
+    <section class="section skills-section" id="skills">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-subtitle">Core Capabilities</span>
+          <h2 class="section-title">Technical & Professional Skills</h2>
+          <div class="section-divider"></div>
+        </div>
+
+        <!-- Skills Filter / Search -->
+        <div class="skills-search-wrapper">
+          <div class="search-input-box">
+            <i class="fas fa-search"></i>
+            <input type="text" id="skills-search-input" placeholder="Search skills (e.g., Python, OpenCV, HTML5, Java, Git)...">
+            <button id="skills-clear-search" class="clear-btn" style="display: none;"><i class="fas fa-times"></i></button>
+          </div>
+        </div>
+
+        <!-- Skills Categories Grid -->
+        <div class="skills-categories-grid" id="skills-container">
+          <!-- Dynamically populated -->
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS SECTION -->
+    <section class="section projects-section" id="projects">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-subtitle">Featured Work</span>
+          <h2 class="section-title">Projects & Systems</h2>
+          <div class="section-divider"></div>
+        </div>
+
+        <!-- Projects Grid -->
+        <div class="projects-grid" id="projects-container">
+          <!-- Dynamically populated -->
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE SECTION -->
+    <section class="section experience-section" id="experience">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-subtitle">Practical Journey</span>
+          <h2 class="section-title">Experience & Milestones</h2>
+          <div class="section-divider"></div>
+        </div>
+
+        <!-- Timeline -->
+        <div class="timeline-container" id="experience-container">
+          <!-- Dynamically populated -->
+        </div>
+      </div>
+    </section>
+
+    <!-- EDUCATION & CERTIFICATIONS SECTION -->
+    <section class="section education-section" id="education">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-subtitle">Qualifications & Credentials</span>
+          <h2 class="section-title">Education & Achievements</h2>
+          <div class="section-divider"></div>
+        </div>
+
+        <div class="edu-grid">
+          <!-- Education Column -->
+          <div class="edu-column">
+            <div class="column-header">
+              <i class="fas fa-graduation-cap"></i>
+              <h3>Academic Background</h3>
+            </div>
+            <div class="edu-cards-list" id="education-container">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+
+          <!-- Certifications & Achievements Column -->
+          <div class="edu-column">
+            <div class="column-header">
+              <i class="fas fa-award"></i>
+              <h3>Certifications & Honors</h3>
+            </div>
+            <div class="cert-cards-list" id="certifications-container">
+              <!-- Dynamically populated -->
+            </div>
+            
+            <div class="column-header" style="margin-top: 1.5rem;">
+              <i class="fas fa-trophy"></i>
+              <h3>Hackathons & Recognitions</h3>
+            </div>
+            <div class="cert-cards-list" id="achievements-container">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section class="section contact-section" id="contact">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-subtitle">Get In Touch</span>
+          <h2 class="section-title">Contact & Connect</h2>
+          <div class="section-divider"></div>
+        </div>
+
+        <div class="contact-grid">
+          <!-- Left: Contact Cards -->
+          <div class="contact-info-cards">
+            <div class="contact-card">
+              <div class="contact-card-icon">
+                <i class="fas fa-envelope"></i>
+              </div>
+              <div class="contact-card-details">
+                <span class="card-label">Email Address</span>
+                <a href="mailto:shivamthegreat116@email.com" id="contact-email-link" class="card-val">shivamthegreat116@email.com</a>
+              </div>
+              <button class="copy-pill-btn" onclick="copyToClipboard('shivamthegreat116@email.com', this)" title="Copy Email">
+                <i class="fas fa-copy"></i>
+              </button>
+            </div>
+
+            <div class="contact-card">
+              <div class="contact-card-icon">
+                <i class="fas fa-phone-alt"></i>
+              </div>
+              <div class="contact-card-details">
+                <span class="card-label">Phone / WhatsApp</span>
+                <a href="tel:+917827777291" id="contact-phone-link" class="card-val">+91 7827777291</a>
+              </div>
+              <button class="copy-pill-btn" onclick="copyToClipboard('+917827777291', this)" title="Copy Phone">
+                <i class="fas fa-copy"></i>
+              </button>
+            </div>
+
+            <div class="contact-card">
+              <div class="contact-card-icon">
+                <i class="fas fa-map-marker-alt"></i>
+              </div>
+              <div class="contact-card-details">
+                <span class="card-label">Current Location</span>
+                <span id="contact-location-text" class="card-val">Greater Noida / Delhi NCR, India</span>
+              </div>
+            </div>
+
+            <div class="contact-card">
+              <div class="contact-card-icon">
+                <i class="fab fa-linkedin-in"></i>
+              </div>
+              <div class="contact-card-details">
+                <span class="card-label">Professional Network</span>
+                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" id="contact-linkedin-link" class="card-val">LinkedIn Profile</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: Interactive Contact Message Form -->
+          <div class="contact-form-card">
+            <h3>Send a Message</h3>
+            <p>Interested in collaboration, internship opportunity, or building a project together? Leave a message below.</p>
+            
+            <form id="contact-form" class="interactive-form">
+              <div class="form-group">
+                <label for="contact-name">Your Name</label>
+                <input type="text" id="contact-name" name="name" placeholder="John Doe" required>
+              </div>
+
+              <div class="form-group">
+                <label for="contact-sender-email">Your Email</label>
+                <input type="email" id="contact-sender-email" name="email" placeholder="john@example.com" required>
+              </div>
+
+              <div class="form-group">
+                <label for="contact-subject">Subject</label>
+                <input type="text" id="contact-subject" name="subject" placeholder="Project collaboration / Internship inquiry" required>
+              </div>
+
+              <div class="form-group">
+                <label for="contact-message">Message</label>
+                <textarea id="contact-message" name="message" rows="4" placeholder="Hello Shivam, I came across your digital portfolio..." required></textarea>
+              </div>
+
+              <button type="submit" class="btn btn-primary btn-block">
+                <i class="fas fa-paper-plane"></i> Send Direct Email
+              </button>
+              <div id="form-feedback" class="form-feedback"></div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- PRINTABLE ATS RESUME SHEET (Visible only in Print / PDF view) -->
+  <div class="print-resume-sheet" id="print-sheet">
+    <!-- Populated by JavaScript for pristine 1-2 page ATS formatting -->
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer-container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <span class="brand-badge">SP</span>
+          <span class="footer-name" id="footer-name">Shivam's Digital Portfolio</span>
+        </div>
+        <p class="footer-tagline">Universal Digital Resume & Portfolio built with semantic HTML5, modern CSS3 & JavaScript.</p>
+      </div>
+
+      <div class="footer-links">
+        <a href="#hero">Home</a>
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#experience">Experience</a>
+        <a href="#education">Education</a>
+        <a href="#contact">Contact</a>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; <span id="current-year">2026</span> <strong id="footer-copy-name">Shivam Pandey</strong>. Crafted for high performance & effortless deployment.</p>
+        <p class="footer-deploy-tip"><i class="fab fa-github"></i> Ready for 1-click deployment on GitHub Pages, Netlify & Vercel</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- SCROLL TO TOP BUTTON -->
+  <button id="scroll-top-btn" class="scroll-top-btn" title="Back to top">
+    <i class="fas fa-chevron-up"></i>
+  </button>
+
+  <!-- ============================================ -->
+  <!-- RESUME LIVE CUSTOMIZER DRAWER / MODAL       -->
+  <!-- Enables ANYONE to turn this into their resume -->
+  <!-- ============================================ -->
+  <div class="customizer-modal-backdrop" id="customizer-modal">
+    <div class="customizer-modal-dialog">
+      <div class="customizer-header">
+        <div class="customizer-title-area">
+          <i class="fas fa-sliders-h"></i>
+          <div>
+            <h3>Customize Digital Resume</h3>
+            <p>Personalize this portfolio with your own details. Updates reflect immediately!</p>
+          </div>
+        </div>
+        <button class="customizer-close-btn" id="customizer-close">&times;</button>
+      </div>
+
+      <!-- Quick Actions Bar in Customizer -->
+      <div class="customizer-quick-actions">
+        <button class="btn btn-outline btn-xs" id="customizer-load-default" title="Reset to Shivam Pandey's original resume">
+          <i class="fas fa-rotate-left"></i> Load Shivam's Resume
+        </button>
+        <button class="btn btn-outline btn-xs" id="customizer-load-sample" title="Clear or load a fresh developer template">
+          <i class="fas fa-sparkles"></i> Load Clean Template
+        </button>
+        <button class="btn btn-outline btn-xs" id="customizer-export-json" title="Download your custom data as JSON">
+          <i class="fas fa-download"></i> Export JSON
+        </button>
+        <label class="btn btn-outline btn-xs customizer-file-label" title="Upload a previously saved resume JSON">
+          <i class="fas fa-upload"></i> Import JSON
+          <input type="file" id="customizer-import-json" accept=".json" style="display: none;">
+        </label>
+      </div>
+
+      <div class="customizer-tabs">
+        <button class="customizer-tab active" data-tab="tab-personal">Personal</button>
+        <button class="customizer-tab" data-tab="tab-about">About</button>
+        <button class="customizer-tab" data-tab="tab-skills">Skills</button>
+        <button class="customizer-tab" data-tab="tab-projects">Projects</button>
+        <button class="customizer-tab" data-tab="tab-experience">Experience</button>
+        <button class="customizer-tab" data-tab="tab-education">Education</button>
+      </div>
+
+      <div class="customizer-body">
+        <!-- TAB 1: PERSONAL INFO -->
+        <div class="customizer-tab-pane active" id="tab-personal">
+          <div class="input-grid">
+            <div class="form-group">
+              <label for="edit-name">Full Name</label>
+              <input type="text" id="edit-name" placeholder="Shivam Pandey">
+            </div>
+            <div class="form-group">
+              <label for="edit-status">Availability Status Badge</label>
+              <input type="text" id="edit-status" placeholder="Available for Internships & Projects">
+            </div>
+            <div class="form-group">
+              <label for="edit-email">Email</label>
+              <input type="email" id="edit-email" placeholder="shivamthegreat116@email.com">
+            </div>
+            <div class="form-group">
+              <label for="edit-phone">Phone Number</label>
+              <input type="text" id="edit-phone" placeholder="+91 7827777291">
+            </div>
+            <div class="form-group">
+              <label for="edit-location">Location</label>
+              <input type="text" id="edit-location" placeholder="Greater Noida / Delhi NCR, India">
+            </div>
+            <div class="form-group">
+              <label for="edit-linkedin">LinkedIn URL</label>
+              <input type="url" id="edit-linkedin" placeholder="https://linkedin.com/in/username">
+            </div>
+            <div class="form-group">
+              <label for="edit-github">GitHub URL</label>
+              <input type="url" id="edit-github" placeholder="https://github.com/username">
+            </div>
+            <div class="form-group span-full">
+              <label for="edit-titles">Animated Titles (comma-separated)</label>
+              <input type="text" id="edit-titles" placeholder="AI & ML Engineer, Computer Vision Enthusiast, Web Developer">
+              <small class="helper-text">These rotate with a typing animation in the hero banner.</small>
+            </div>
+            <div class="form-group span-full">
+              <label for="edit-bio">Short Bio Snippet</label>
+              <textarea id="edit-bio" rows="2" placeholder="Brief 1-2 sentence description for the hero section"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 2: ABOUT INFO -->
+        <div class="customizer-tab-pane" id="tab-about">
+          <div class="form-group">
+            <label for="edit-summary">About Me / Research Interests Summary</label>
+            <textarea id="edit-summary" rows="5" placeholder="Your professional summary or research goals..."></textarea>
+          </div>
+        </div>
+
+        <!-- TAB 3: SKILLS -->
+        <div class="customizer-tab-pane" id="tab-skills">
+          <p class="customizer-section-help">Edit the skills categories and their comma-separated skill lists below:</p>
+          <div id="edit-skills-list-container">
+            <!-- Dynamically populated skill editors -->
+          </div>
+          <button class="btn btn-outline btn-sm" id="btn-add-skill-category" style="margin-top: 1rem;">
+            <i class="fas fa-plus"></i> Add Skill Category
+          </button>
+        </div>
+
+        <!-- TAB 4: PROJECTS -->
+        <div class="customizer-tab-pane" id="tab-projects">
+          <p class="customizer-section-help">Add, modify, or remove your highlighted projects:</p>
+          <div id="edit-projects-list-container">
+            <!-- Dynamically populated project editors -->
+          </div>
+          <button class="btn btn-outline btn-sm" id="btn-add-project" style="margin-top: 1rem;">
+            <i class="fas fa-plus"></i> Add New Project
+          </button>
+        </div>
+
+        <!-- TAB 5: EXPERIENCE -->
+        <div class="customizer-tab-pane" id="tab-experience">
+          <p class="customizer-section-help">Edit your internships, projects, or work history:</p>
+          <div id="edit-experience-list-container">
+            <!-- Dynamically populated experience editors -->
+          </div>
+          <button class="btn btn-outline btn-sm" id="btn-add-experience" style="margin-top: 1rem;">
+            <i class="fas fa-plus"></i> Add Experience
+          </button>
+        </div>
+
+        <!-- TAB 6: EDUCATION -->
+        <div class="customizer-tab-pane" id="tab-education">
+          <p class="customizer-section-help">Edit degrees, colleges, and schooling:</p>
+          <div id="edit-education-list-container">
+            <!-- Dynamically populated education editors -->
+          </div>
+          <button class="btn btn-outline btn-sm" id="btn-add-education" style="margin-top: 1rem;">
+            <i class="fas fa-plus"></i> Add Degree / Education
+          </button>
+        </div>
+      </div>
+
+      <div class="customizer-footer">
+        <div class="customizer-status" id="customizer-status-msg">Changes saved locally in your browser!</div>
+        <div class="customizer-footer-buttons">
+          <button class="btn btn-ghost" id="customizer-btn-cancel">Close</button>
+          <button class="btn btn-primary" id="customizer-btn-apply">
+            <i class="fas fa-check"></i> Apply & Save Changes
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION CONTAINER -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- JavaScript Scripts -->
+  <script src="js/defaultData.js"></script>
+  <script src="js/script.js"></script>
+</body>
+</html>
